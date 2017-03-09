@@ -15,7 +15,7 @@ class Departamento:
         self.num_dorms = num_dorms
         self.num_banos = num_banos
         self.vendido = False
-        self.visitas = 0
+        self._visitas = 0
         Departamento.last_id += 1
 
     def __str__(self):
@@ -23,8 +23,17 @@ class Departamento:
                 .format(self._id, self.visitas)
                 )
 
-    def visitar(self):
-        self.visitas += 1
+    @property
+    def visitas(self):
+        return self._visitas
+
+    @visitas.setter
+    def visitas(self, valor):
+        print(
+            'Has cambiado el valor de numero de visitas de {} a {}'
+            .format(self._visitas, valor)
+            )
+        self._visitas = valor
 
     def vender(self):
         '''Método que simula vender el departamento
@@ -33,6 +42,14 @@ class Departamento:
             self.vendido = True
         else:
             print("Departamento {} ya se vendio".format(self._id))
+
+
+class PentHouse(Departamento):
+
+    def __init__(self, mts2, valor, num_dorms, num_banos, sirvientes):
+        super().__init__(mts2, valor, num_dorms, num_banos)
+        self._sirvientes = sirvientes
+
 
 # Main Code
 
