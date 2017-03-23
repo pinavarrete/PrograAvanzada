@@ -182,43 +182,59 @@ class Egoista(Personalidad):
         animal.accion_propia()
 
 
-class GoldenPUC(Perro, Jugueton):
+class GoldenPUC(Perro):
     def __init__(self, expresion=1, **kwargs):
         super().__init__(**kwargs)
+        self._personalidad = Jugueton()
         self._expresion = expresion
         if self._sexo == "Macho":
             self._expresion = self._expresion*1.1
         else:
             self._expresion = self._expresion*0.9
 
+    def jugar(self):
+        print("Quiero Jugar")
+        super().jugar()
+        self.accion_propia()
 
-class PUCTerrier(Perro, Egoista):
+
+class PUCTerrier(Perro):
     def __init__(self, expresion=1, **kwargs):
         super().__init__(**kwargs)
+        self._personalidad = Egoista()
         self._expresion = expresion
         if self._sexo == "Macho":
             self._expresion = self._expresion*1.2
         else:
             self._expresion = self._expresion*1
 
+    def comer(self):
+        print("Quiero comida")
+        super().comer()
+        self.accion_propia()
 
-class SiamePUC(Gato, Egoista):
+
+class SiamePUC(Gato):
     def __init__(self, expresion=1, **kwargs):
         super().__init__(**kwargs)
+        self._personalidad = Egoista()
         self._expresion = expresion
         if self._sexo == "Macho":
             self._expresion = self._expresion*1
         else:
             self._expresion = self._expresion*1.5
 
-    def cambio_expresion(self, animal=Gato):
-        super().cambio_expresion(animal)
+    def comer(self):
+        print("Quiero comida")
+        super().comer()
+        self.accion_propia()
 
 
-def accion(animal):
-    animal.comer()
-    animal.jugar()
-
+def sumar(lista):
+    total = 0
+    for elemento in lista:
+        total += elemento
+    return total
 
 if __name__ == '__main__':
     animals = list()
@@ -231,6 +247,28 @@ if __name__ == '__main__':
     animals.append(PUCTerrier(expresion=0.8, nombre="Betty",
                               color="Café", sexo="Hembra"))
 
+    horas_sueño = []
+    horas_juego_indv = []
+    horas_juego_grup = []
+    cantidad_comida = []
+    horas_regaloneao = []
+    for animal in animals:
+        horas_sueño.append(animal._personalidad.sleep_hours *
+                           animal._expresion)
+        horas_juego_indv.append(animal._personalidad.play_individual_hours *
+                                animal._expresion)
+        horas_juego_grup.append(animal._personalidad.play_grupal_hours *
+                                animal._expresion)
+        cantidad_comida.append(animal._personalidad.meals *
+                               animal._expresion)
+        horas_regaloneao.append(animal._personalidad.love_hours *
+                                animal._expresion)
+    print('Estadisticas')
+    print('Horas de Sueño : {}'.format(min(horas_sueño)))
+    print('Horas de Juego Individual : {}'.format(min(horas_juego_indv)))
+    print('Horas de Juego Grupal : {}'.format(max(horas_juego_grup)))
+    print('Horas de Comida : {}'.format(sumar(cantidad_comida)))
+    print('Horas de Regaloneo : {}'.format(sumar(horas_regaloneao)))
     for a in animals:
         print(a)
         a.jugar()
