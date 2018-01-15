@@ -1,3 +1,3 @@
 # PrograAvanzada
-Repo para Programación Avanzada
-This is an awesome thing!!!!! jaja
+
+Repo para practicar para curso de Programación Avanzada IIC2233.

@@ -1,32 +1,31 @@
-from PyQt5 import QtWidgets
+import sys
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication
 
 
-class MiFormulario(QtWidgets.QWidget):
+ui_file = uic.loadUiType('TicTacToegame.ui')
+
+
+class TicTacGame(ui_file[0], ui_file[1]):
 
     def __init__(self):
         super().__init__()
-        self.init_GUI()
+        self.setupUi(self)
+        self.gano = False
+        self.jugadas = ['X', 'O']
+        self.counter = 0
 
-    def init_GUI(self):
-        # Este método inicializa la interfaz y todos sus elementos o Widgets
-        # una vez que es llamado el formulario
+    def juego(self):
+        self.counter = 0
+        while self.counter < 10 and not self.gano:
+            pass
 
-        self.label1 = QtWidgets.QLabel('Texto:', self)
-        self.label1.move(10, 15)
-
-        self.label2 = QtWidgets.QLabel('Esta etiqueta es variable', self)
-        self.label2.move(10, 50)
-
-        self.edit1 = QtWidgets.QLineEdit('', self)
-        self.edit1.setGeometry(45, 15, 100, 20)
-
-        # Agrega todos los elementos al formulario
-        self.setGeometry(200, 100, 200, 300)
-        self.setWindowTitle('Ventana con Boton')
+    def click_button(self): caracter = self.jugadas[self.counter % 2]
+    self.gridLayoutGame
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication([])
-    formulario = MiFormulario()
-    formulario.show()
-    app.exec_()
+    app = QApplication([])
+    form = TicTacGame()
+    form.show()
+    sys.exit(app.exec_())
